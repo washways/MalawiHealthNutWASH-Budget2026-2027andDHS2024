@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malawi 2026/27 Budget & DHS District Atlas</title>
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="kicker">Malawi WASH Budget 2026/27 + DHS 2024</p>
+      <h1>Malawi 2026/27 Budget & DHS District Atlas</h1>
+      <p class="lead">
+        Interactive district-level comparison of 2026/27 budget allocations and DHS 2024 WASH and nutrition indicators.
+        This version includes simplified district geometries, a nutrition indicator profile, and sector deep dives for WASH, health, and nutrition budgets.
+      </p>
+      <div id="topCards" class="top-cards"></div>
+      <div class="print-tools">
+        <span class="muted">Print / Export:</span>
+        <button id="printActiveBtn" type="button">Print active tab</button>
+        <button id="printAllBtn" type="button">Print full report</button>
+        <span class="muted small-note">Use your browser print dialog to save as PDF.</span>
+      </div>
+
+      <nav class="tabs" id="mainTabs">
+        <button class="tab-btn active" data-tab="overview">Overview</button>
+        <button class="tab-btn" data-tab="cdf">CDF Allocations</button>
+        <button class="tab-btn" data-tab="child-impacts">Child Health Impacts</button>
+        <button class="tab-btn" data-tab="methodology">Methodology</button>
+        <button class="tab-btn" data-tab="budget-detail">Budget Deep Dives</button>
+      </nav>
+    </header>
+
+    <section class="tab-panel active" data-tab="overview">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Overview</h2>
+          <p class="muted">WASH access and deprivation signals from DHS 2024. Use the selector to view the WASH Risk Index alongside nutrition and social indicator layers.</p>
+        </div>
+        <div class="info-grid">
+          <article class="detail-card">
+            <h3>WASH Risk Index</h3>
+            <p class="muted small-note">Average of six gaps/risks: basic water, sanitation, handwashing, safely managed water, open defecation, and E. coli exposure. Higher values mean higher WASH risk.</p>
+          </article>
+          <article class="detail-card">
+            <h3>Nutrition Risk Index</h3>
+            <p class="muted small-note">Average of stunting, wasting, and underweight prevalence. Higher values mean higher undernutrition burden.</p>
+          </article>
+        </div>
+        <div class="map-grid">
+          <article class="map-card">
+            <div class="map-head">
+              <h3>Indicator Layer Map</h3>
+              <select id="indicatorMetricSelect"></select>
+            </div>
+            <p id="indicatorLayerNote" class="muted small-note"></p>
+            <div class="map-shell">
+              <svg id="indicatorMap" viewBox="0 0 940 760" aria-label="Indicator map"></svg>
+              <div id="indicatorMapTooltip" class="tooltip"></div>
+            </div>
+            <div id="indicatorMapLegend" class="legend"></div>
+          </article>
+          <aside id="washDetail" class="detail-card compact">
+            <h3>Select a district</h3>
+            <p class="muted">District WASH indicators will appear here.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Indicator Map Gallery</h2>
+          <p class="muted">Expanded map gallery across WASH, nutrition, and household energy indicators.</p>
+        </div>
+        <div id="dhsGalleryGrid" class="gallery-grid"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Nutrition & Social Comparisons</h2>
+          <p class="muted">Compare undernutrition burdens alongside service access and household energy indicators.</p>
+        </div>
+        <div class="analysis-grid">
+          <article class="chart-card">
+            <h3>Top Nutrition Risk Districts</h3>
+            <div id="nutritionRiskList" class="mini-table"></div>
+          </article>
+          <article class="chart-card">
+            <h3>Highest Combined WASH + Nutrition Districts</h3>
+            <div id="combinedNeedNutritionList" class="mini-table"></div>
+          </article>
+          <article class="chart-card">
+            <h3>Nutrition indicator profile</h3>
+            <svg id="nutritionIndicatorChart" viewBox="0 0 700 320" aria-label="Average nutrition indicators"></svg>
+            <p class="muted">Average stunting, wasting, and underweight from 2024 DHS compared to a 15% stunting target.</p>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" data-tab="cdf">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>CDF Allocation Maps</h2>
+          <p class="muted">CDF budget and alignment layers combined into one map for clearer budgeting analysis.</p>
+        </div>
+        <div class="map-grid">
+          <article class="map-card">
+            <div class="map-head">
+              <h3>CDF Budget & Alignment Map</h3>
+              <select id="cdfMetricSelect"></select>
+            </div>
+            <div class="map-shell">
+              <svg id="cdfMap" viewBox="0 0 940 760" aria-label="CDF map"></svg>
+              <div id="cdfMapTooltip" class="tooltip"></div>
+            </div>
+            <div id="cdfMapLegend" class="legend"></div>
+          </article>
+          <aside id="districtDetail" class="detail-card">
+            <h3>Select a district</h3>
+            <p class="muted">Budget and risk alignment details will appear here.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Budget vs WASH Risk Pattern View</h2>
+        </div>
+        <div class="analysis-grid">
+          <article class="chart-card">
+            <h3>Budget vs WASH Risk Scatter</h3>
+            <svg id="scatterPlot" viewBox="0 0 700 420" aria-label="Scatter plot"></svg>
+            <div id="scatterTooltip" class="tooltip"></div>
+            <p class="muted">X-axis: district WASH Risk Index. Y-axis: CDF budget allocation (bn, selected currency).</p>
+          </article>
+
+          <article class="chart-card">
+            <h3>Budget Correlations With Key Indicators</h3>
+            <div id="correlationBars" class="bar-list"></div>
+            <p class="muted">Bars show Pearson correlation (-1 to +1) between district CDF totals and DHS indicators. Positive values mean higher budgets align with higher indicator values; negative means higher budgets align with lower indicator values. Correlation shows association, not causation.</p>
+          </article>
+        </div>
+
+        <div class="analysis-grid">
+          <article class="chart-card">
+            <h3>Strongest Underfunding Signals</h3>
+            <div id="underfundedList" class="mini-table"></div>
+          </article>
+          <article class="chart-card">
+            <h3>Strongest Overfunding Signals</h3>
+            <div id="overfundedList" class="mini-table"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head row-between">
+          <h2>District Comparison Table</h2>
+          <div class="table-controls">
+            <input id="searchInput" type="search" placeholder="Filter district">
+            <select id="sortSelect"></select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>District</th>
+                <th>CDF Total (bn, selected currency)</th>
+                <th>WASH Risk Index</th>
+                <th>Basic Water %</th>
+                <th>Basic Sanitation %</th>
+                <th>Basic Handwashing %</th>
+                <th>Safely Managed Water %</th>
+                <th>Budget/WASH Risk Ratio</th>
+                <th>Rank Gap</th>
+              </tr>
+            </thead>
+            <tbody id="districtTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" data-tab="child-impacts">
+      <section class="panel">
+        <div class="panel-head row-between">
+          <div>
+            <h2>Child Health Impacts</h2>
+            <p class="muted">Malawi child burden charts adapted from <code>washways/ChildWASHHealthImpacts</code>, fitted to this atlas and aligned to the WASH, health, and nutrition sectors.</p>
+          </div>
+          <p class="muted small-note" id="childImpactStatus">Loading Malawi child burden data...</p>
+        </div>
+
+        <div class="child-controls-grid">
+          <label class="child-control-card">
+            <span>Measure</span>
+            <select id="childMeasureSelect"></select>
+          </label>
+          <label class="child-control-card">
+            <span>Metric</span>
+            <select id="childMetricSelect"></select>
+          </label>
+          <label class="child-control-card">
+            <span>Age display mode</span>
+            <select id="childModeSelect">
+              <option value="absolute">Absolute burden</option>
+              <option value="share">Share of age-specific total (%)</option>
+            </select>
+          </label>
+          <label class="child-control-card">
+            <span>Top causes</span>
+            <input id="childTopNRange" type="range" min="5" max="20" step="1" value="10">
+            <strong id="childTopNValue">10 causes</strong>
+          </label>
+          <label class="child-control-card child-control-card-wide">
+            <span>Cause filter</span>
+            <input id="childCauseFilter" type="search" placeholder="Filter causes, e.g. diarrheal, sepsis, malnutrition">
+          </label>
+        </div>
+
+        <div class="child-age-tools">
+          <div class="child-age-actions">
+            <button id="childAllAgesBtn" type="button">All child ages</button>
+            <button id="childUnder5Btn" type="button">Under-5 only</button>
+          </div>
+          <div id="childAgePills" class="child-age-pills"></div>
+        </div>
+        <p class="muted small-note" id="childImpactMetricNote">`Percent` uses the GBD percentage metric from the source extract and is shown as percentage points.</p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Sector Views</h2>
+          <p class="muted">These tabs reuse the child-burden logic from the source prototype, but are reorganized to fit the sector framing used throughout this atlas.</p>
+        </div>
+
+        <div class="tabs" id="impactSectorTabs">
+          <button class="tab-btn active" data-sector="wash">WASH Impacts</button>
+          <button class="tab-btn" data-sector="health">Health Impacts</button>
+          <button class="tab-btn" data-sector="nutrition">Nutrition Impacts</button>
+        </div>
+
+        <div class="impact-sector-panels">
+          <div class="impact-sector-panel active" data-sector="wash">
+            <div class="impact-summary-grid" id="impactSummary-wash"></div>
+            <div class="analysis-grid">
+              <article class="chart-card child-chart-card">
+                <h3>Top WASH-linked causes by age band</h3>
+                <p class="muted">Each bar is a WASH-attributable cause, split by the child age bands carrying the burden.</p>
+                <canvas id="impactWashCauseAgeChart" aria-label="Top WASH-linked causes by age band"></canvas>
+              </article>
+              <article class="chart-card child-chart-card">
+                <h3>Age-wise WASH burden split</h3>
+                <p class="muted">Child age bands split into WASH Core and WASH Extended causes.</p>
+                <canvas id="impactWashAgeBucketChart" aria-label="Age-wise WASH burden split"></canvas>
+              </article>
+              <article class="chart-card child-chart-card">
+                <h3>Top WASH-linked causes by WASH bucket</h3>
+                <p class="muted">Shows which named causes sit in the core WASH burden versus the broader WASH-related infection envelope.</p>
+                <canvas id="impactWashCauseBucketChart" aria-label="Top WASH-linked causes by WASH bucket"></canvas>
+              </article>
+            </div>
+          </div>
+
+          <div class="impact-sector-panel" data-sector="health">
+            <div class="impact-summary-grid" id="impactSummary-health"></div>
+            <div class="analysis-grid">
+              <article class="chart-card child-chart-card">
+                <h3>Top child causes by age band</h3>
+                <p class="muted">All child causes, with each bar split by the age bands carrying the selected burden.</p>
+                <canvas id="impactHealthCauseAgeChart" aria-label="Top child causes by age band"></canvas>
+              </article>
+              <article class="chart-card child-chart-card">
+                <h3>Age-wise burden by WASH bucket</h3>
+                <p class="muted">Shows how much of the child health burden in each age band sits inside WASH Core, WASH Extended, and Non-WASH causes.</p>
+                <canvas id="impactHealthAgeBucketChart" aria-label="Age-wise burden by WASH bucket"></canvas>
+              </article>
+              <article class="chart-card child-chart-card">
+                <h3>Top child causes by WASH bucket</h3>
+                <p class="muted">Classifies the leading causes into WASH-related and non-WASH child health burdens.</p>
+                <canvas id="impactHealthCauseBucketChart" aria-label="Top child causes by WASH bucket"></canvas>
+              </article>
+            </div>
+          </div>
+
+          <div class="impact-sector-panel" data-sector="nutrition">
+            <div class="impact-summary-grid" id="impactSummary-nutrition"></div>
+            <div class="analysis-grid">
+              <article class="chart-card child-chart-card">
+                <h3>Nutrition-relevant causes by age band</h3>
+                <p class="muted">Direct undernutrition and WASH-linked infection causes, split by the ages where they are most concentrated.</p>
+                <canvas id="impactNutritionCauseAgeChart" aria-label="Nutrition-relevant causes by age band"></canvas>
+              </article>
+              <article class="chart-card child-chart-card">
+                <h3>Age-wise nutrition burden split</h3>
+                <p class="muted">Shows how direct undernutrition and WASH-linked infections stack up across child age bands.</p>
+                <canvas id="impactNutritionAgeCategoryChart" aria-label="Age-wise nutrition burden split"></canvas>
+              </article>
+              <article class="chart-card child-chart-card">
+                <h3>Age profile of top nutrition-relevant causes</h3>
+                <p class="muted">Flips the view so age bands are on the axis and each colour represents a leading nutrition-relevant cause.</p>
+                <canvas id="impactNutritionAgeCauseChart" aria-label="Age profile of top nutrition-relevant causes"></canvas>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" data-tab="methodology">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>How District WASH Risk Index Is Calculated</h2>
+        </div>
+        <div class="method-grid">
+          <article class="method-card wash">
+            <h3>Step 1: Convert Service Indicators To Risk Components</h3>
+            <p class="muted">For protective indicators, we invert the percentage so higher values represent higher WASH risk.</p>
+            <pre class="formula">water_gap = 100 - basic_water_service_pct
+sanitation_gap = 100 - basic_sanitation_service_pct
+handwashing_gap = 100 - basic_handwashing_facility_pct
+safe_water_gap = 100 - safely_managed_drinking_water_pct
+open_defecation_risk = open_defecation_pct
+e_coli_risk = e_coli_in_household_water_pct</pre>
+          </article>
+          <article class="method-card wash">
+            <h3>Step 2: Build District WASH Risk Index</h3>
+            <p class="muted">The WASH Risk Index is a weighted average of the six components above, on a 0-100 scale (defaults to equal weights).</p>
+            <pre class="formula">wash_risk_index = mean(
+  water_gap,
+  sanitation_gap,
+  handwashing_gap,
+  safe_water_gap,
+  open_defecation_risk,
+  e_coli_risk
+)</pre>
+            <p id="washWeightsNote" class="muted small-note"></p>
+          </article>
+          <article class="method-card">
+            <h3>Step 3: Underfunding Signal</h3>
+            <p class="muted">Districts are ranked by budget (largest = rank 1) and by WASH risk (highest risk = rank 1).</p>
+            <pre class="formula">underfunding_signal = budget_rank - wash_risk_rank
+
+positive  -> underfunding signal
+negative  -> overfunding signal
+near zero -> budget and risk ranks broadly aligned</pre>
+            <p class="muted small-note">The dashboard paints the gap as a signed number so districts with higher risk ranks than budgets surface for targeted advocacy.</p>
+          </article>
+          <article class="method-card nutrition">
+            <h3>Nutrition Risk Index</h3>
+            <p class="muted">The Nutrition Risk Index is a weighted average of stunting, wasting, and underweight percentages. Higher values signal higher undernutrition burden.</p>
+            <pre class="formula">nutrition_risk_index = mean(stunting_pct, wasting_pct, underweight_pct)</pre>
+            <p id="nutritionWeightsNote" class="muted small-note"></p>
+            <p class="muted small-note">We also compute a blended index to compare WASH risk with nutrition risk.</p>
+            <pre class="formula">wash_nutrition_blend_index = (0.7 * wash_risk_index) + (0.3 * nutrition_risk_index)</pre>
+          </article>
+          <article class="method-card">
+            <h3>Sector budgets & subnational allocations</h3>
+            <p class="muted">The sector tabs layer district allocation signals atop national ministry votes, so you can trace how central health, nutrition, and water budgets finance delivery.</p>
+            <p class="muted">The tabs highlight major cost categories (e.g., MOHS service delivery, MOAIWD construction, social cash transfers) and the staffing pressure signalled by personnel envelopes and water board operations.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Risk Index Weighting Controls</h2>
+          <p class="muted">Adjust component weights. Values are relative; indices are normalized to 0-100. Set a component to 0 to exclude it.</p>
+        </div>
+        <div class="weight-grid">
+          <article class="weight-card wash">
+            <h3>WASH Risk Index Components</h3>
+            <div class="weight-list">
+              <div class="weight-row">
+                <label for="washWeightWater">Basic water gap</label>
+                <input id="washWeightWater" type="range" min="0" max="3" step="0.1" value="1">
+                <span id="washWeightWaterValue" class="weight-value">1.0</span>
+              </div>
+              <div class="weight-row">
+                <label for="washWeightSanitation">Basic sanitation gap</label>
+                <input id="washWeightSanitation" type="range" min="0" max="3" step="0.1" value="1">
+                <span id="washWeightSanitationValue" class="weight-value">1.0</span>
+              </div>
+              <div class="weight-row">
+                <label for="washWeightHandwashing">Handwashing gap</label>
+                <input id="washWeightHandwashing" type="range" min="0" max="3" step="0.1" value="1">
+                <span id="washWeightHandwashingValue" class="weight-value">1.0</span>
+              </div>
+              <div class="weight-row">
+                <label for="washWeightSafeWater">Safely managed water gap</label>
+                <input id="washWeightSafeWater" type="range" min="0" max="3" step="0.1" value="1">
+                <span id="washWeightSafeWaterValue" class="weight-value">1.0</span>
+              </div>
+              <div class="weight-row">
+                <label for="washWeightOpenDefecation">Open defecation risk</label>
+                <input id="washWeightOpenDefecation" type="range" min="0" max="3" step="0.1" value="1">
+                <span id="washWeightOpenDefecationValue" class="weight-value">1.0</span>
+              </div>
+              <div class="weight-row">
+                <label for="washWeightEcoli">E. coli risk</label>
+                <input id="washWeightEcoli" type="range" min="0" max="3" step="0.1" value="1">
+                <span id="washWeightEcoliValue" class="weight-value">1.0</span>
+              </div>
+            </div>
+          </article>
+          <article class="weight-card nutrition">
+            <h3>Nutrition Risk Index Components</h3>
+            <div class="weight-list">
+              <div class="weight-row">
+                <label for="nutritionWeightStunting">Stunting</label>
+                <input id="nutritionWeightStunting" type="range" min="0" max="3" step="0.1" value="1">
+                <span id="nutritionWeightStuntingValue" class="weight-value">1.0</span>
+              </div>
+              <div class="weight-row">
+                <label for="nutritionWeightWasting">Wasting</label>
+                <input id="nutritionWeightWasting" type="range" min="0" max="3" step="0.1" value="1">
+                <span id="nutritionWeightWastingValue" class="weight-value">1.0</span>
+              </div>
+              <div class="weight-row">
+                <label for="nutritionWeightUnderweight">Underweight</label>
+                <input id="nutritionWeightUnderweight" type="range" min="0" max="3" step="0.1" value="1">
+                <span id="nutritionWeightUnderweightValue" class="weight-value">1.0</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="weight-actions">
+          <button id="resetWeightsBtn" type="button">Reset to equal weights</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Worked District Example</h2>
+          <p class="muted">This updates when you click any district in the maps or table.</p>
+        </div>
+        <div id="methodExample" class="detail-card">
+          <p class="muted">Select a district to see a worked formula breakdown.</p>
+        </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" data-tab="budget-detail">
+      <section class="panel">
+        <div class="panel-head row-between">
+          <div>
+            <h2>Budget Deep Dive (Single Layer)</h2>
+            <p class="muted">Flattened sector budget analysis view with no nested tabs, focusing on WASH, health, and nutrition votes plus delivery pressures.</p>
+          </div>
+          <div class="table-controls">
+            <select id="currencySelect">
+              <option value="MWK">Display: MWK</option>
+              <option value="USD">Display: USD</option>
+            </select>
+            <input id="usdRateInput" type="number" min="1" step="0.1" placeholder="MWK per USD">
+          </div>
+        </div>
+        <div class="tabs" id="sectorTabs">
+          <button class="tab-btn active" data-sector="wash">WASH Budget</button>
+          <button class="tab-btn" data-sector="health">Health Budget</button>
+          <button class="tab-btn" data-sector="nutrition">Nutrition Budget</button>
+        </div>
+        <div class="sector-panels">
+          <div class="sector-panel active" data-sector="wash">
+            <div class="panel">
+              <div class="sector-metrics" id="sectorMetrics-wash"></div>
+            </div>
+            <div class="panel">
+              <div class="sector-cards" id="sectorCards-wash"></div>
+            </div>
+            <div class="panel">
+              <div class="sector-charts" id="sectorCharts-wash"></div>
+            </div>
+            <div class="panel">
+              <div class="sector-table" id="sectorTable-wash"></div>
+            </div>
+            <div class="panel">
+              <div class="table-grid">
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>Water boards performance snapshot</h3>
+                    <div class="table-actions">
+                      <input id="washWaterboardsSearch" type="search" placeholder="Search board">
+                      <button id="washWaterboardsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="washWaterboardsTable" class="table-wrap"></div>
+                </article>
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>WASH programmes</h3>
+                    <div class="table-actions">
+                      <input id="washProgramsSearch" type="search" placeholder="Search programme">
+                      <button id="washProgramsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="washProgramsTable" class="table-wrap"></div>
+                </article>
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>WASH projects</h3>
+                    <div class="table-actions">
+                      <input id="washProjectsSearch" type="search" placeholder="Search project">
+                      <button id="washProjectsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="washProjectsTable" class="table-wrap"></div>
+                </article>
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>WASH cost categories</h3>
+                    <div class="table-actions">
+                      <input id="washCostsSearch" type="search" placeholder="Search category">
+                      <button id="washCostsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="washCostsTable" class="table-wrap"></div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div class="sector-panel" data-sector="health">
+            <div class="panel">
+              <div class="sector-metrics" id="sectorMetrics-health"></div>
+            </div>
+            <div class="panel">
+              <div class="sector-cards" id="sectorCards-health"></div>
+            </div>
+            <div class="panel">
+              <div class="sector-charts" id="sectorCharts-health"></div>
+            </div>
+            <div class="panel">
+              <div class="sector-table" id="sectorTable-health"></div>
+            </div>
+            <div class="panel">
+              <div class="table-grid">
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>Health staffing envelope</h3>
+                    <div class="table-actions">
+                      <input id="healthStaffingSearch" type="search" placeholder="Search ministry">
+                      <button id="healthStaffingDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="healthStaffingTable" class="table-wrap"></div>
+                </article>
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>Health programmes</h3>
+                    <div class="table-actions">
+                      <input id="healthProgramsSearch" type="search" placeholder="Search programme">
+                      <button id="healthProgramsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="healthProgramsTable" class="table-wrap"></div>
+                </article>
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>Health projects</h3>
+                    <div class="table-actions">
+                      <input id="healthProjectsSearch" type="search" placeholder="Search project">
+                      <button id="healthProjectsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="healthProjectsTable" class="table-wrap"></div>
+                </article>
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>Health cost categories</h3>
+                    <div class="table-actions">
+                      <input id="healthCostsSearch" type="search" placeholder="Search category">
+                      <button id="healthCostsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="healthCostsTable" class="table-wrap"></div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div class="sector-panel" data-sector="nutrition">
+            <div class="panel">
+              <div class="sector-metrics" id="sectorMetrics-nutrition"></div>
+            </div>
+            <div class="panel">
+              <div class="sector-cards" id="sectorCards-nutrition"></div>
+            </div>
+            <div class="panel">
+              <div class="sector-charts" id="sectorCharts-nutrition"></div>
+            </div>
+            <div class="panel">
+              <div class="sector-table" id="sectorTable-nutrition"></div>
+            </div>
+            <div class="panel">
+              <div class="table-grid">
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>Nutrition staffing envelope</h3>
+                    <div class="table-actions">
+                      <input id="nutritionStaffingSearch" type="search" placeholder="Search ministry">
+                      <button id="nutritionStaffingDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="nutritionStaffingTable" class="table-wrap"></div>
+                </article>
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>Nutrition programmes</h3>
+                    <div class="table-actions">
+                      <input id="nutritionProgramsSearch" type="search" placeholder="Search programme">
+                      <button id="nutritionProgramsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="nutritionProgramsTable" class="table-wrap"></div>
+                </article>
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>Nutrition projects</h3>
+                    <div class="table-actions">
+                      <input id="nutritionProjectsSearch" type="search" placeholder="Search project">
+                      <button id="nutritionProjectsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="nutritionProjectsTable" class="table-wrap"></div>
+                </article>
+                <article class="table-card">
+                  <div class="table-head">
+                    <h3>Nutrition cost categories</h3>
+                    <div class="table-actions">
+                      <input id="nutritionCostsSearch" type="search" placeholder="Search category">
+                      <button id="nutritionCostsDownload" type="button">Download CSV</button>
+                    </div>
+                  </div>
+                  <div id="nutritionCostsTable" class="table-wrap"></div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="data/dashboard_data_bundle.js"></script>
+  <script src="assets/chart.umd.min.js"></script>
+  <script src="src/app.js" defer></script>
+</body>
+</html>

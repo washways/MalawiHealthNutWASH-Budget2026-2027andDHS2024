@@ -1,0 +1,392 @@
+{
+  "top_budget_districts": [
+    {
+      "district": "Lilongwe",
+      "total_budget_mwk": 155000000000.0
+    },
+    {
+      "district": "Mzimba",
+      "total_budget_mwk": 80000000000.0
+    },
+    {
+      "district": "Blantyre",
+      "total_budget_mwk": 80000000000.0
+    },
+    {
+      "district": "Mangochi",
+      "total_budget_mwk": 65000000000.0
+    },
+    {
+      "district": "Kasungu",
+      "total_budget_mwk": 55000000000.0
+    },
+    {
+      "district": "Zomba",
+      "total_budget_mwk": 55000000000.0
+    },
+    {
+      "district": "Dowa",
+      "total_budget_mwk": 50000000000.0
+    },
+    {
+      "district": "Dedza",
+      "total_budget_mwk": 50000000000.0
+    },
+    {
+      "district": "Thyolo",
+      "total_budget_mwk": 45000000000.0
+    },
+    {
+      "district": "Mulanje",
+      "total_budget_mwk": 45000000000.0
+    }
+  ],
+  "highest_need_districts": [
+    {
+      "district": "Mzimba",
+      "need_index": 69.2
+    },
+    {
+      "district": "Kasungu",
+      "need_index": 67.25
+    },
+    {
+      "district": "Thyolo",
+      "need_index": 66.117
+    },
+    {
+      "district": "Nsanje",
+      "need_index": 65.533
+    },
+    {
+      "district": "Chikwawa",
+      "need_index": 64.117
+    },
+    {
+      "district": "Nkhotakota",
+      "need_index": 63.6
+    },
+    {
+      "district": "Ntcheu",
+      "need_index": 62.133
+    },
+    {
+      "district": "Zomba",
+      "need_index": 61.867
+    },
+    {
+      "district": "Rumphi",
+      "need_index": 61.25
+    },
+    {
+      "district": "Phalombe",
+      "need_index": 61.05
+    }
+  ],
+  "highest_combined_need_nutrition_districts": [
+    {
+      "district": "Mzimba",
+      "need_nutrition_blend_index": 53.25
+    },
+    {
+      "district": "Kasungu",
+      "need_nutrition_blend_index": 51.895
+    },
+    {
+      "district": "Thyolo",
+      "need_nutrition_blend_index": 51.232
+    },
+    {
+      "district": "Nsanje",
+      "need_nutrition_blend_index": 51.023
+    },
+    {
+      "district": "Chikwawa",
+      "need_nutrition_blend_index": 50.162
+    },
+    {
+      "district": "Ntcheu",
+      "need_nutrition_blend_index": 49.523
+    },
+    {
+      "district": "Nkhotakota",
+      "need_nutrition_blend_index": 49.26
+    },
+    {
+      "district": "Zomba",
+      "need_nutrition_blend_index": 49.007
+    },
+    {
+      "district": "Phalombe",
+      "need_nutrition_blend_index": 48.145
+    },
+    {
+      "district": "Mchinji",
+      "need_nutrition_blend_index": 47.98
+    }
+  ],
+  "highest_nutrition_risk_districts": [
+    {
+      "district": "Ntcheu",
+      "nutrition_risk_index": 20.1
+    },
+    {
+      "district": "Mwanza",
+      "nutrition_risk_index": 19.033
+    },
+    {
+      "district": "Zomba",
+      "nutrition_risk_index": 19.0
+    },
+    {
+      "district": "Machinga",
+      "nutrition_risk_index": 18.667
+    },
+    {
+      "district": "Chitipa",
+      "nutrition_risk_index": 18.633
+    },
+    {
+      "district": "Mchinji",
+      "nutrition_risk_index": 18.533
+    },
+    {
+      "district": "Neno",
+      "nutrition_risk_index": 18.133
+    },
+    {
+      "district": "Phalombe",
+      "nutrition_risk_index": 18.033
+    },
+    {
+      "district": "Chikwawa",
+      "nutrition_risk_index": 17.6
+    },
+    {
+      "district": "Chiradzulu",
+      "nutrition_risk_index": 17.533
+    }
+  ],
+  "budget_vs_need_rank_gap_most_overfunded_signal": [
+    {
+      "district": "Mangochi",
+      "rank_gap": -23
+    },
+    {
+      "district": "Blantyre",
+      "rank_gap": -16
+    },
+    {
+      "district": "Lilongwe",
+      "rank_gap": -14
+    },
+    {
+      "district": "Dedza",
+      "rank_gap": -12
+    },
+    {
+      "district": "Dowa",
+      "rank_gap": -10
+    },
+    {
+      "district": "Machinga",
+      "rank_gap": -9
+    },
+    {
+      "district": "Chitipa",
+      "rank_gap": -8
+    },
+    {
+      "district": "Nkhata Bay",
+      "rank_gap": -8
+    },
+    {
+      "district": "Ntchisi",
+      "rank_gap": -5
+    },
+    {
+      "district": "Salima",
+      "rank_gap": -5
+    }
+  ],
+  "budget_vs_need_rank_gap_most_underfunded_signal": [
+    {
+      "district": "Nsanje",
+      "rank_gap": 19
+    },
+    {
+      "district": "Rumphi",
+      "rank_gap": 16
+    },
+    {
+      "district": "Nkhotakota",
+      "rank_gap": 13
+    },
+    {
+      "district": "Neno",
+      "rank_gap": 13
+    },
+    {
+      "district": "Phalombe",
+      "rank_gap": 12
+    },
+    {
+      "district": "Chiradzulu",
+      "rank_gap": 9
+    },
+    {
+      "district": "Chikwawa",
+      "rank_gap": 9
+    },
+    {
+      "district": "Thyolo",
+      "rank_gap": 6
+    },
+    {
+      "district": "Balaka",
+      "rank_gap": 6
+    },
+    {
+      "district": "Ntcheu",
+      "rank_gap": 4
+    }
+  ],
+  "budget_vs_need_nutrition_rank_gap_most_overfunded_signal": [
+    {
+      "district": "Mangochi",
+      "rank_gap": -23
+    },
+    {
+      "district": "Blantyre",
+      "rank_gap": -19
+    },
+    {
+      "district": "Lilongwe",
+      "rank_gap": -14
+    },
+    {
+      "district": "Dedza",
+      "rank_gap": -13
+    },
+    {
+      "district": "Dowa",
+      "rank_gap": -9
+    },
+    {
+      "district": "Nkhata Bay",
+      "rank_gap": -8
+    },
+    {
+      "district": "Machinga",
+      "rank_gap": -8
+    },
+    {
+      "district": "Chitipa",
+      "rank_gap": -7
+    },
+    {
+      "district": "Ntchisi",
+      "rank_gap": -6
+    },
+    {
+      "district": "Salima",
+      "rank_gap": -6
+    }
+  ],
+  "budget_vs_need_nutrition_rank_gap_most_underfunded_signal": [
+    {
+      "district": "Nsanje",
+      "rank_gap": 19
+    },
+    {
+      "district": "Neno",
+      "rank_gap": 14
+    },
+    {
+      "district": "Phalombe",
+      "rank_gap": 13
+    },
+    {
+      "district": "Nkhotakota",
+      "rank_gap": 12
+    },
+    {
+      "district": "Rumphi",
+      "rank_gap": 11
+    },
+    {
+      "district": "Chiradzulu",
+      "rank_gap": 10
+    },
+    {
+      "district": "Chikwawa",
+      "rank_gap": 9
+    },
+    {
+      "district": "Mwanza",
+      "rank_gap": 8
+    },
+    {
+      "district": "Balaka",
+      "rank_gap": 7
+    },
+    {
+      "district": "Thyolo",
+      "rank_gap": 6
+    }
+  ],
+  "correlations": [
+    {
+      "indicator": "basic_water_service_pct",
+      "pearson_with_budget": -0.1806
+    },
+    {
+      "indicator": "basic_sanitation_service_pct",
+      "pearson_with_budget": -0.2538
+    },
+    {
+      "indicator": "basic_handwashing_facility_pct",
+      "pearson_with_budget": 0.2629
+    },
+    {
+      "indicator": "safely_managed_drinking_water_pct",
+      "pearson_with_budget": -0.2517
+    },
+    {
+      "indicator": "open_defecation_pct",
+      "pearson_with_budget": 0.0519
+    },
+    {
+      "indicator": "e_coli_in_household_water_pct",
+      "pearson_with_budget": 0.1187
+    },
+    {
+      "indicator": "without_water_on_premises_pct",
+      "pearson_with_budget": 0.2714
+    },
+    {
+      "indicator": "stunting_pct",
+      "pearson_with_budget": 0.062
+    },
+    {
+      "indicator": "wasting_pct",
+      "pearson_with_budget": -0.2671
+    },
+    {
+      "indicator": "underweight_pct",
+      "pearson_with_budget": -0.2
+    },
+    {
+      "indicator": "need_index",
+      "pearson_with_budget": 0.2097
+    },
+    {
+      "indicator": "nutrition_risk_index",
+      "pearson_with_budget": -0.1063
+    },
+    {
+      "indicator": "need_nutrition_blend_index",
+      "pearson_with_budget": 0.1834
+    }
+  ]
+}

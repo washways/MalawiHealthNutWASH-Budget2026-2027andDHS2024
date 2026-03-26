@@ -1,0 +1,83 @@
+[
+  {
+    "slug": "doc-1-2026-27-budget-policy-statement",
+    "source_file": "Doc 1_2026-27 Budget Policy Statement.pdf",
+    "page_count": 73,
+    "primary_backend": "pypdf",
+    "average_selected_characters": 1051.67,
+    "average_selected_words": 160.68,
+    "table_count": 8
+  },
+  {
+    "slug": "doc-2-2026-annual-economic-report",
+    "source_file": "Doc 2_2026 Annual Economic Report.pdf",
+    "page_count": 270,
+    "primary_backend": "pypdf",
+    "average_selected_characters": 1926.84,
+    "average_selected_words": 294.03,
+    "table_count": 49
+  },
+  {
+    "slug": "doc-3-2026-27-financial-statement",
+    "source_file": "Doc 3_2026-27 Financial Statement.pdf",
+    "page_count": 129,
+    "primary_backend": "pypdf",
+    "average_selected_characters": 1615.4,
+    "average_selected_words": 279.77,
+    "table_count": 218
+  },
+  {
+    "slug": "doc-4-2026-27-detailed-vol.-i",
+    "source_file": "Doc 4_2026-27 Detailed Vol. I.pdf",
+    "page_count": 186,
+    "primary_backend": "pdfplumber",
+    "average_selected_characters": 2372.33,
+    "average_selected_words": 429.95,
+    "table_count": 278
+  },
+  {
+    "slug": "doc-4-2026-27-detailed-vol.-ii",
+    "source_file": "Doc 4_2026-27 Detailed Vol. II.pdf",
+    "page_count": 311,
+    "primary_backend": "pdfplumber",
+    "average_selected_characters": 2840.47,
+    "average_selected_words": 509.67,
+    "table_count": 568
+  },
+  {
+    "slug": "doc-4-2026-27-detailed-vol.-iii",
+    "source_file": "Doc 4_2026-27 Detailed Vol. III.pdf",
+    "page_count": 295,
+    "primary_backend": "pdfplumber",
+    "average_selected_characters": 2673.12,
+    "average_selected_words": 468.08,
+    "table_count": 498
+  },
+  {
+    "slug": "doc-5-2026-27-program-based-budget---central-ministries-and-departments",
+    "source_file": "Doc 5_2026-27 Program Based Budget - Central Ministries and Departments.pdf",
+    "page_count": 587,
+    "primary_backend": "pypdf",
+    "average_selected_characters": 1604.49,
+    "average_selected_words": 243.5,
+    "table_count": 1534
+  },
+  {
+    "slug": "doc-5-2026-27-program-based-budget---subvented-organisations",
+    "source_file": "Doc 5_2026-27 Program Based Budget - Subvented Organisations.pdf",
+    "page_count": 507,
+    "primary_backend": "pypdf",
+    "average_selected_characters": 970.34,
+    "average_selected_words": 155.39,
+    "table_count": 1350
+  },
+  {
+    "slug": "doc-6-2026-27-public-sector-investment-program",
+    "source_file": "Doc 6_2026-27 Public Sector Investment Program.pdf",
+    "page_count": 286,
+    "primary_backend": "pypdf",
+    "average_selected_characters": 1519.18,
+    "average_selected_words": 228.93,
+    "table_count": 839
+  }
+]
