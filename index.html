@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Malawi 2026/27 Budget & DHS District Atlas</title>
+  <title>Malawi WASH Budget 2026/27 &amp; DHS 2024 Atlas</title>
   <link rel="stylesheet" href="src/styles.css">
-</head>
+<meta name="description" content="Compare Malawi's 2026/27 budget allocations with DHS 2024 WASH and nutrition indicators."><meta property="og:title" content="Malawi WASH Budget 2026/27 &amp; DHS 2024 Atlas"><meta property="og:description" content="Compare Malawi's 2026/27 budget allocations with DHS 2024 WASH and nutrition indicators."><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Malawi WASH Budget 2026/27 &amp; DHS 2024 Atlas"><meta name="twitter:description" content="Compare Malawi's 2026/27 budget allocations with DHS 2024 WASH and nutrition indicators."><meta property="og:image" content="https://washways.org/assets/images/malawihealthnutwash-budget2026-2027anddhs2024-preview.jpg"><meta name="twitter:image" content="https://washways.org/assets/images/malawihealthnutwash-budget2026-2027anddhs2024-preview.jpg"><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-64GCB9QDB5"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-64GCB9QDB5');
+</script></head>
 <body>
   <main class="shell">
     <header class="hero">
       <p class="kicker">Malawi WASH Budget 2026/27 + DHS 2024</p>
-      <h1>Malawi 2026/27 Budget & DHS District Atlas</h1>
+      <h1>Malawi 2026/27 Budget &amp; DHS District Atlas</h1>
       <p class="lead">
         Interactive district-level comparison of 2026/27 budget allocations and DHS 2024 WASH and nutrition indicators.
         This version includes simplified district geometries, a nutrition indicator profile, and sector deep dives for WASH, health, and nutrition budgets.
@@ -78,7 +82,7 @@
 
       <section class="panel">
         <div class="panel-head">
-          <h2>Nutrition & Social Comparisons</h2>
+          <h2>Nutrition &amp; Social Comparisons</h2>
           <p class="muted">Compare undernutrition burdens alongside service access and household energy indicators.</p>
         </div>
         <div class="analysis-grid">
@@ -108,7 +112,7 @@
         <div class="map-grid">
           <article class="map-card">
             <div class="map-head">
-              <h3>CDF Budget & Alignment Map</h3>
+              <h3>CDF Budget &amp; Alignment Map</h3>
               <select id="cdfMetricSelect"></select>
             </div>
             <div class="map-shell">
@@ -344,9 +348,9 @@ e_coli_risk = e_coli_in_household_water_pct</pre>
             <p class="muted">Districts are ranked by budget (largest = rank 1) and by WASH risk (highest risk = rank 1).</p>
             <pre class="formula">underfunding_signal = budget_rank - wash_risk_rank
 
-positive  -> underfunding signal
-negative  -> overfunding signal
-near zero -> budget and risk ranks broadly aligned</pre>
+positive  -&gt; underfunding signal
+negative  -&gt; overfunding signal
+near zero -&gt; budget and risk ranks broadly aligned</pre>
             <p class="muted small-note">The dashboard paints the gap as a signed number so districts with higher risk ranks than budgets surface for targeted advocacy.</p>
           </article>
           <article class="method-card nutrition">
@@ -358,7 +362,7 @@ near zero -> budget and risk ranks broadly aligned</pre>
             <pre class="formula">wash_nutrition_blend_index = (0.7 * wash_risk_index) + (0.3 * nutrition_risk_index)</pre>
           </article>
           <article class="method-card">
-            <h3>Sector budgets & subnational allocations</h3>
+            <h3>Sector budgets &amp; subnational allocations</h3>
             <p class="muted">The sector tabs layer district allocation signals atop national ministry votes, so you can trace how central health, nutrition, and water budgets finance delivery.</p>
             <p class="muted">The tabs highlight major cost categories (e.g., MOHS service delivery, MOAIWD construction, social cash transfers) and the staffing pressure signalled by personnel envelopes and water board operations.</p>
           </article>
@@ -645,6 +649,7 @@ near zero -> budget and risk ranks broadly aligned</pre>
 
   <script src="data/dashboard_data_bundle.js"></script>
   <script src="assets/chart.umd.min.js"></script>
-  <script src="src/app.js" defer></script>
-</body>
-</html>
+  <script src="src/app.js" defer=""></script>
+
+
+</body></html>
